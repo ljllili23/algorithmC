@@ -13,6 +13,7 @@ int main(){
         ans+=a[i]*b[j];
       }
     }
+    printf("%d",ans);
   }
   return 0;
 }
