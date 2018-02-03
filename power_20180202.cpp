@@ -7,11 +7,13 @@ int main(){
 		while(b!=0){
 			if(b%2==1){
 				ans *= a;
-				ans /=1000;
+				ans %=1000;
 			}
 			a *= a;
+			a %= 1000;
 			b /= 2;
 		}
+		printf("%d\n",ans);
 	}
 	return 0;
 }
