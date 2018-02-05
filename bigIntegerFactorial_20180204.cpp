@@ -1,6 +1,3 @@
-//big Integer Factorial
-//_20180204_
-//@author: LeeJiangLee
 #include <stdio.h>
 struct bigInteger{
 	int digit[1000];
@@ -10,6 +7,7 @@ struct bigInteger{
 		size = 0;
 	}
 	void set(int x){
+		init();
 		do{
 			digit[size++] = x%10000;
 			x /= 10000;
@@ -17,15 +15,15 @@ struct bigInteger{
 	}
 	void output(){
 		for(int i=size-1;i>=0;--i){
-			if(i==size-1) printf("%d",digit[i]);
-			else printf("%04d",digit[i]);
+			if(i!=size-1) printf("%04d",digit[i]);
+			else printf("%d",digit[i]);
 		}
 		printf("\n");
 	}
-	bigInteger operator * (int x) const {
+	bigInteger operator* (int x) const{
 		bigInteger ret;
 		ret.init();
-		int carry = 0;
+		int carry=0;
 		for(int i=0;i<size;++i){
 			int tmp = x*digit[i]+carry;
 			carry = tmp/10000;
@@ -38,12 +36,12 @@ struct bigInteger{
 		return ret;
 	}
 }a;
+
 int main(){
 	int n;
 	while(scanf("%d",&n)!=EOF){
-		a.init();
 		a.set(1);
-		for(int i=1;i<=n;++i){
+		for(int i=2;i<=n;++i){
 			a = a*i;
 		}
 		a.output();
