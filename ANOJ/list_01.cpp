@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iomanip> //std::setfill	std::setw
 using namespace std;
 struct Node{
 	int next;
@@ -27,11 +28,13 @@ int main(){
 			//	}
 			//head=addr;
 		}
-		int p=list[head].next;
-		 pre=head;
+		//int p=list[head].next;
+		list[99999].next=head;
+		int p = head;
+		 pre=99999;
 		int cnt=0;
 		while(p!=-1){
-			if(Hash[list[p].c]==0){
+			if(Hash[Abs(list[p].c)]==0){
 				Hash[Abs(list[p].c)]=p;
 				++cnt;
 				pre=list[pre].next;
@@ -43,11 +46,17 @@ int main(){
 			//pre=list[pre].next;
 			//p=list[pre].next;
 		}
-		cout<<cnt<<' '<<head<<endl;
-		pre=head;
-		p=list[head].next;
+		cout<<cnt<<' ';
+		cout<<setfill('0')<<setw(5)<<head<<endl;
+		pre=99999;
+		p=list[pre].next;
 		while(p!=-1){
-			cout<<pre<<' '<<list[p].c<<' '<<p<<endl;
+			cout<<setfill('0')<<setw(5)<<p;
+			cout<<' '<<list[p].c<<' ';
+			if(list[p].next==-1){
+				cout<<list[p].next<<endl;
+			}else
+				cout<<setfill('0')<<setw(5)<<list[p].next<<endl;
 			pre=p;
 			p=list[pre].next;
 		}
