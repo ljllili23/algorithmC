@@ -4,9 +4,9 @@
 using namespace std;
 vector<int> edge[1001];
 priority_queue <int, vector<int>,greater<int> > Q;
-//queue<int> ansQ;
-int ans[1001];
-int size;
+queue<int> ansQ;
+//int ans[1001];
+//int size;
 int main(){
 	int n,m;
 	int inDegree[1001];
@@ -23,14 +23,15 @@ int main(){
 			edge[a].push_back(b);
 		}
 		while(!Q.empty()) Q.pop();
-		//while(!ansQ.empty()) ansQ.pop();
+		while(!ansQ.empty()) ansQ.pop();
 		for(int i=0;i<n;++i){
 			if(inDegree[i]==0) Q.push(i);
 		}
-		size=0;
+		//size=0;
 		while(!Q.empty()){
 			int newP = Q.top();
-			ans[size++]=newP;
+			//ans[size++]=newP;
+			ansQ.push(newP);
 			Q.pop();
 			for(int i=0;i<edge[newP].size();++i){
 				int tmp=edge[newP][i];
@@ -39,15 +40,18 @@ int main(){
 					Q.push(tmp);
 			}
 		}
-		if(size==n){
+		if(ansQ.size()==n){
 			cout<<"YES"<<endl;
+			 int size=ansQ.size();
 			 for(int i=0;i<size;++i){
 			 	if(i==0){
-			 		cout<<ans[i];
-			 		//ansQ.pop();
+			 		//cout<<ans[i];
+					cout<<ansQ.front();
+			 		ansQ.pop();
 			 	}else{
-			 		cout<<' '<<ans[i];
-			 		//ansQ.pop();
+			 		//cout<<' '<<ans[i];
+					cout<<' '<<ansQ.front();
+			 		ansQ.pop();
 			 	}
 			 }
 			 cout<<endl;
