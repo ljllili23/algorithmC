@@ -1,73 +1,52 @@
 #include <iostream>
-#include <queue>
+#include <string.h>
 using namespace std;
-
 struct Node{
 	Node* lchild;
 	Node* rchild;
-	int c;
-}Tree[100001];
+	char c;
+}Tree[110];
 int loc;
+char str[110];
+int size;
 Node* creat(){
 	Tree[loc].lchild = Tree[loc].rchild = NULL;
 	return &Tree[loc++];
 }
 
-Node* Insert(Node* p, int x){
-	if (p == NULL){
-		p = creat();
-		p->c = x;
-		return p;
+void inOrder(Node* T){
+	if (T->lchild != NULL){
+		inOrder(T->lchild);
 	}
-	else if (x>p->c){
-		p->rchild=Insert(p->rchild,x);
-		//Insert(p->rchild, x);
+	cout << T->c << ' ';
+	if (T->rchild != NULL){
+		inOrder(T->rchild);
 	}
-	else if (x<p->c){
-		p->lchild=Insert(p->lchild,x);
-		//Insert(p->lchild, x);
-	}
-	return p;
 }
 
-void LevelOrder(Node* T){
-	int flag = 0;
-	Node* queue[100001];
-	int front, rear;
-	front = rear = 0;
-	queue[rear++] = T;
-	while (rear != front){
-		Node* t = queue[front++];
-		if (flag == 0){
-			cout << t->c;
-			flag = 1;
-		}
-		else{
-			cout << ' ' << t->c;
-		}
-		if (t->lchild != NULL){
-			queue[rear++] = t->lchild;
-		}
-		if (t->rchild != NULL){
-			queue[rear++] = t->rchild;
-		}
+//+----------------------------------------------------
+//NOTICE!
+Node* build(){
+	if (size >= strlen(str)) return NULL;
+	if (str[size] == '#') { 	//NOTICE! '==' not '='!!
+		++size;
+		return NULL;
 	}
-	cout << endl;
+	Node* T = creat();
+	T->c = str[size++];
+		T->lchild = build();
+		T->rchild = build();
+	return T;
 }
+//+-----------------------------------------------------
 
 int main(){
-	int n;
-	//loc=0;
-	while (cin >> n){
+	while (cin >> str){
 		loc = 0;
-		int t;
-		Node* Root=NULL;
-		while (n--){
-			cin >> t;
-			//Node* tmp;
-			Root = Insert(Root, t);
-		}
-		LevelOrder(Root);
+		size = 0;
+		Node* Root = NULL;
+		Root = build();
+		inOrder(Root);
 	}
 	return 0;
 }
