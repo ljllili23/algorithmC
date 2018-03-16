@@ -42,7 +42,7 @@ int main(){
 				int a=findRoot(it->a);
 				int b=findRoot(it->b);
 				if(a!=b){
-					a=tree[b];
+					tree[a]=b;	//注意别写成a=tree[b];
 				}
 			}
 		}
@@ -51,7 +51,7 @@ int main(){
 				int a=findRoot(it->a);
 				int b=findRoot(it->b);
 				if(a!=b){
-					a=tree[b];
+					tree[a]=b;	//Ditto^
 					ans+=it->cost;
 				}
 			}
